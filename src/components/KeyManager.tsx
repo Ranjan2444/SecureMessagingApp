@@ -1,14 +1,19 @@
-import { generateRSAKeyPair } from "../crypto/cryptoUtils"
+import { useState } from "react";
+import { exportKeyAsBase64, generateRSAKeyPair } from "../crypto/cryptoUtils"
 
 
 const KeyManager = () => {
+    const [publicKeyBase64, setpublicKeyBase64] = useState<string | null>(null);
 
     const handleGenerateKeys = async () =>{
         const keyPair = await generateRSAKeyPair();
 
-        console.log(keyPair.privateKey)
-        console.log(keyPair.publicKey)
+        // console.log(keyPair.privateKey)
+        // console.log(keyPair.publicKey)
 
+        const publicKeyStr = await exportKeyAsBase64(keyPair.publicKey)
+        
+        setpublicKeyBase64(publicKeyStr);
 
     }
 
@@ -22,6 +27,17 @@ const KeyManager = () => {
         >
         Generate Key Pair
         </button>
+
+        {publicKeyBase64 && (
+        <div className="mt-4">
+          <p className="text-green-600 mb-2">Key pair generated successfully!</p>
+          <textarea
+            className="w-full h-40 p-2 border text-sm"
+            readOnly
+            value={publicKeyBase64}
+          />
+        </div>
+      )}
     </div>
   )
 }
