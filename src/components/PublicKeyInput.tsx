@@ -24,7 +24,7 @@ const PublicKeyInput = () => {
 
     return (
         <div className="p-4 border rounded shadow max-w-md mx-auto mt-6">
-        <h2 className="text-xl font-semibold mb-3">📥 Import Public Key</h2>
+        <h2 className="text-xl font-semibold mb-3">Import Public Key</h2>
 
         <textarea
         placeholder="Paste Base64 public key here"
@@ -40,7 +40,7 @@ const PublicKeyInput = () => {
         Import Key
         </button>
 
-        {imported && <p className="text-green-600 mt-3">✅ Public key imported successfully!</p>}
+        {imported && <p className="text-green-600 mt-3">Public key imported successfully!</p>}
         {error && <p className="text-red-600 mt-3">{error}</p>}
     </div>
     )

@@ -38,4 +38,40 @@ export async function importPublicKeyFromBase64(base64: string): Promise<CryptoK
         ["encrypt"]     // Key usage: here it is used to encrypt
     );
     }
+
+
+export async function encryptMessage(message: string,publicKey: CryptoKey): Promise<string>{
+  const encodedMessage = new TextEncoder().encode(message); // Convert to Uint8Array
+  const encrypted = await window.crypto.subtle.encrypt(
+    {
+      name: "RSA-OAEP",
+    },
+    publicKey,
+    encodedMessage
+  );
+
+   // Convert encrypted data to Base64 for display
+   const encryptedBytes = new Uint8Array(encrypted);
+   const encryptedStr = String.fromCharCode(...encryptedBytes);
+   return btoa(encryptedStr);
+}
+
+export async function decryptMessage(base64Cipher: string, privateKey: CryptoKey): Promise<string>{
+
+  // Convert Base64 → Uint8Array
+  const binaryStr = atob(base64Cipher);
+  const encryptedBytes = new Uint8Array([...binaryStr].map(char => char.charCodeAt(0)));
+
+  const decryptedBuffer = await window.crypto.subtle.decrypt(
+    {
+      name : "RSA-OAEP",
+    },
+    privateKey,
+    encryptedBytes
+  );
+
+    // Convert decrypted buffer to string
+    return new TextDecoder().decode(decryptedBuffer);
+
+}
   
