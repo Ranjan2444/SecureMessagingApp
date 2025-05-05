@@ -29,7 +29,7 @@ const EncryptMessage = () => {
 
     return (
         <div className="p-4 border rounded shadow max-w-md mx-auto mt-6">
-        <h2 className="text-xl font-semibold mb-3">🔐 Encrypt a Message</h2>
+        <h2 className="text-xl font-semibold mb-3">Encrypt a Message</h2>
 
         <textarea
             className="w-full h-24 p-2 border mb-3 text-sm"

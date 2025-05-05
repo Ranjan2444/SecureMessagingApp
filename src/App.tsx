@@ -6,14 +6,20 @@ import PublicKeyInput from './components/PublicKeyInput'
 import DecryptMessage from './components/DecryptMessage';
 
 function App() {
-  const [privateKey, setPrivateKey] = useState<CryptoKey | null>(null);
+  const [senderPublicKey, setSenderPublicKey] = useState<CryptoKey | null>(null);
+  const [senderPrivateKey, setSenderPrivateKey] = useState<CryptoKey | null>(null);
+
+  const [receiverPublicKey, setReceiverPublicKey] = useState<CryptoKey | null>(null);
+  const [receiverPrivateKey, setReceiverPrivateKey] = useState<CryptoKey | null>(null);
 
   return (
     <>
-      <KeyManager setPrivateKey={setPrivateKey}/>
-      <PublicKeyInput/>
+      <KeyManager user="Sender" setPublicKey={setSenderPublicKey} setPrivateKey={setSenderPrivateKey}/>
+      <KeyManager user="Receiver" setPublicKey={setReceiverPublicKey} setPrivateKey={setReceiverPrivateKey}/>
+
+      {/* <PublicKeyInput/> */}
       <EncryptMessage/>
-      <DecryptMessage privateKey = {privateKey}/>
+      <DecryptMessage privateKey = {receiverPrivateKey}/>
     </>
   )
 }
