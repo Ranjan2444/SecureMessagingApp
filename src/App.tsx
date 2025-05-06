@@ -4,6 +4,7 @@ import EncryptMessage from './components/EncryptMessage'
 import KeyManager from './components/KeyManager'
 import PublicKeyInput from './components/PublicKeyInput'
 import DecryptMessage from './components/DecryptMessage';
+import MessageBoard from './components/MessageBoard';
 
 function App() {
   const [senderPublicKey, setSenderPublicKey] = useState<CryptoKey | null>(null);
@@ -18,8 +19,14 @@ function App() {
       <KeyManager user="Receiver" setPublicKey={setReceiverPublicKey} setPrivateKey={setReceiverPrivateKey}/>
 
       {/* <PublicKeyInput/> */}
-      <EncryptMessage/>
-      <DecryptMessage privateKey = {receiverPrivateKey}/>
+      {/* <EncryptMessage/>
+      <DecryptMessage privateKey = {receiverPrivateKey}/> */}
+       <MessageBoard
+          senderPublicKey={senderPublicKey}
+          senderPrivateKey={senderPrivateKey}
+          receiverPublicKey={receiverPublicKey}
+          receiverPrivateKey={receiverPrivateKey}
+        />
     </>
   )
 }
