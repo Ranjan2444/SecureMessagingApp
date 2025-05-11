@@ -2,6 +2,8 @@ import { PrismaClient } from '@prisma/client';
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
+import authenticateJWT from "../middleware/auth.js"
+import authorizeRole from '../middleware/authorizeRole.js';
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -53,5 +55,25 @@ router.post('/login', async (req,res) => {
         res.status(500).json({ message:'Login Failed'})
     }
 })
+
+// Protected Route
+router.get('/profile', authenticateJWT, async(req,res)=>{
+    try {
+        const user = await prisma.user.findUnique({
+            where: {id: req.user.userId},
+            select: {id:true, username: true, role: true,createdAt:true}
+        });
+
+        res.json(user);
+        
+    } catch (error) {
+        res.status(500).json({message: 'Could not fetch profile'})
+    }
+})
+
+// Admin Route
+router.get('/admin', authenticateJWT, authorizeRole('ADMIN'), (req,res) =>{
+    res.json({ message:'Welcome Admin'});
+});
 
 export default router;
