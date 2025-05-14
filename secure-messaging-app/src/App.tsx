@@ -5,6 +5,8 @@ import KeyManager from './components/KeyManager'
 import PublicKeyInput from './components/PublicKeyInput'
 import DecryptMessage from './components/DecryptMessage';
 import MessageBoard from './components/MessageBoard';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   const [senderPublicKey, setSenderPublicKey] = useState<CryptoKey | null>(null);
@@ -15,18 +17,21 @@ function App() {
 
   return (
     <>
-      <KeyManager user="Sender" setPublicKey={setSenderPublicKey} setPrivateKey={setSenderPrivateKey}/>
-      <KeyManager user="Receiver" setPublicKey={setReceiverPublicKey} setPrivateKey={setReceiverPrivateKey}/>
+      {/* <KeyManager user="Sender" setPublicKey={setSenderPublicKey} setPrivateKey={setSenderPrivateKey}/>
+      <KeyManager user="Receiver" setPublicKey={setReceiverPublicKey} setPrivateKey={setReceiverPrivateKey}/> */}
 
       {/* <PublicKeyInput/> */}
       {/* <EncryptMessage/>
       <DecryptMessage privateKey = {receiverPrivateKey}/> */}
-       <MessageBoard
+       {/* <MessageBoard
           senderPublicKey={senderPublicKey}
           senderPrivateKey={senderPrivateKey}
           receiverPublicKey={receiverPublicKey}
           receiverPrivateKey={receiverPrivateKey}
-        />
+        /> */}
+        
+        {/* <Login/> */}
+        <Register/>
     </>
   )
 }
